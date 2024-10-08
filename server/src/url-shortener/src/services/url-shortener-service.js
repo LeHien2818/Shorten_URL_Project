@@ -38,6 +38,7 @@ class UrlShortenerService {
     }
 
     async createShortUrl(originalUrl) {
+        const server_host_url = 'http://localhost:3002' // 'http://short.url'
         try {
             console.log('hit data');
 
@@ -45,7 +46,7 @@ class UrlShortenerService {
 
             console.log('url code hash', urlCode);
 
-            const shortUrl = `http://short.url/${urlCode}`;
+            const shortUrl = `${server_host_url}/${urlCode}`;
 
             let url = await Url.findOne({ longUrl: originalUrl });
             console.log(url);

@@ -37,7 +37,8 @@ router.get('/:shortId', async (req, res) => {
 router.post('/create', async (req, res) => {
     try {
         console.log('hit herre');
-
+        // console.log(req);
+        
         const originalUrl = req.body.originalUrl;
         console.log(originalUrl);
 
