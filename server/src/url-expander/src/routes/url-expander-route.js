@@ -6,7 +6,7 @@ const router = express.Router()
 router.get('/:shortId', async (req, res) => {
     try {
         const shortID = req.params.shortId;
-        const original_url = await urlExpanderService.findOriginalUrl(shortID)
+        const original_url = await urlExpanderService.redirectOriginalUrl(shortID)
         console.log(original_url);
         res.redirect(original_url);
     } catch (error) {

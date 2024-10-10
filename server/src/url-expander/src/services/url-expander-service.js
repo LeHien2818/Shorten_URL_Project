@@ -33,6 +33,20 @@ class UrlExpanderService {
         }
     }
 
+    async redirectOriginalUrl(url_code) {
+        try {
+            let url = await Url.findOne({ urlCode: url_code })
+
+            if (url) {
+                url.clicks++;
+                await url.save();
+                return url.longUrl
+            }
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
 }
 
 export default new UrlExpanderService()
