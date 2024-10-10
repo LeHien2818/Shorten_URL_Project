@@ -1,7 +1,6 @@
 import express from 'express';
 import connectDB from './config/database.js';
 import analyticsService from './services/analytics-service.js';
-
 const app = express();
 
 connectDB();
