@@ -5,6 +5,10 @@ const UrlSchema = new mongoose.Schema({
     urlCode: String,
     longUrl: String,
     shortUrl: String,
+    clicks: {
+        type: Number,
+        default: 0
+    },
     date: {
         type: String,
         default: Date.now
@@ -12,3 +16,4 @@ const UrlSchema = new mongoose.Schema({
 });
 
 export default mongoose.model('Url', UrlSchema);
+

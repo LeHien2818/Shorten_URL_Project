@@ -11,13 +11,15 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@babel/core": "7.15.4",
+    "@babel/node": "7.15.4",
+    "@babel/preset-env": "7.15.4",
     "babel": "^5.8.38",
+    "cors": "^2.8.5",
     "express": "^4.21.0",
     "mongoose": "^8.7.0",
     "nodemon": "^3.1.7",
-    "@babel/core": "7.15.4",
-    "@babel/node": "7.15.4",
-    "@babel/preset-env": "7.15.4"
+    "redis": "^4.7.0"
   },
   "type": "module"
 }
