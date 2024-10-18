@@ -22,6 +22,7 @@ redisClient.connect()
 const app = express();
 
 connectDB();
+// redisClient.flushAll();
 
 analyticsService.startScheduler(redisClient);
 
