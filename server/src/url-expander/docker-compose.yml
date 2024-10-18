@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  url-expander-service:
+    image: url-expander
+    container_name: expander
+    build: .
+    ports:
+      - "3002:3002"
+    environment:
+      - MONGO_HOST=mongodb
+      - MONGO_PORT=27017
+      - MONGO_USERNAME=mongo_user
+      - MONGO_PASSWORD=mongo_password
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    networks:
+      - url_shortener_network
+
+networks:
+  url_shortener_network:
+    external: true

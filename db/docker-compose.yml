@@ -12,4 +12,9 @@ services:
     volumes:
       - ./mongo_data:/data/db  
       - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    networks:
+      - url_shortener_network
+networks:
+  url_shortener_network:
+    external: true
       

@@ -4,6 +4,10 @@ Firstly, clone this repository to your local machine.
 ## Requirement:
 Your machine need to have Docker, Node, and npm installed.
 
+#### Note:
+If you use docker, run the following command first:
+`docker network create url_shortener_network` to create a network for all service in this app
+
 ### Database
 
 To install the database, you need to run the following commands in your terminal:

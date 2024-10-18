@@ -1,8 +1,6 @@
 import crypto from 'crypto'
 import Url from '../models/Url.js'
 
-
-
 class UrlShortenerService {
 
 
