@@ -2,14 +2,16 @@
 import { useState } from 'react';
 import { TextInput, Button, Container, Title, Text, Space } from '@mantine/core';
 import classes from './shortener.module.css';
-
+import { useRouter } from 'next/navigation'
 export default function BaseShortUrl() {
     const [url, setUrl] = useState('');
     const [shortenedUrl, setShortenedUrl] = useState('');
-
+    const router = useRouter()
     const handleShorten = async () => {
         if (!url) return;
         console.log(url);
+        // route.push('short_url')
+        router.push('short_url')
         // fetch api
 
     };

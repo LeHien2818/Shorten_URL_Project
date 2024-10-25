@@ -4,10 +4,10 @@ import Url from '../models/Url.js'
 class UrlExpanderService {
 
     URL_object = {}
-    
-    constructor(){
+
+    constructor() {
         this.URL_object = {
-            urlCode : "",
+            urlCode: "",
             longUrl: "",
             shortUrl: "",
             date: ""
@@ -15,20 +15,22 @@ class UrlExpanderService {
     }
 
     async findOriginalUrl(url_code) {
-        try{
-            let url = await Url.findOne({urlCode: url_code})
+        try {
+            let url = await Url.findOne({ urlCode: url_code })
 
-            if(url) {
+            if (url) {
                 this.URL_object = {
-                    url_code : url.urlCode,
-                    long_url : url.longUrl,
-                    short_url : url.shortUrl,
-                    date : url.date
+                    url_code: url.urlCode,
+                    long_url: url.longUrl,
+                    short_url: url.shortUrl,
+                    date: url.date
                 }
                 return url.longUrl
             }
-        } 
-        catch(error) {
+
+
+        }
+        catch (error) {
             console.log(error);
         }
     }
