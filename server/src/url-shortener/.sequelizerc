@@ -1,0 +1,10 @@
+const path = require('path');
+
+console.log('Migration path:', path.resolve('./src', 'migrations')); // Thêm dòng này để kiểm tra đường dẫn
+
+module.exports = {
+    'config': path.resolve('./src/config', 'config.json'),
+    'migrations-path': path.resolve('./src', 'migrations'),
+    'models-path': path.resolve('./src', 'models'),
+    'seeders-path': path.resolve('./src', 'seeders')
+};

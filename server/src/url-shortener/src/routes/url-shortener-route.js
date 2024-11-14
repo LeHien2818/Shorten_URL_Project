@@ -5,10 +5,14 @@ const router = express.Router();
 
 router.get('/:shortId', async (req, res) => {
     try {
+
         const shortURL = req.params.shortId;
+        console.log('check shortUrl', shortURL);
+
         const data = await urlShortenerService.getOriginalURL(shortURL);
         console.log(data);
         if (data.EC === '2') {
+
             return res.status(500).json({
                 EM: data.EM,
                 EC: data.EC,
@@ -36,11 +40,17 @@ router.get('/:shortId', async (req, res) => {
 
 router.post('/create', async (req, res) => {
     try {
-        console.log('hit herre');
-        // console.log(req);
-        
+
+
+        // console.log('Request method:', req.method);
+        // console.log('Request URL:', req.url);
+        // console.log('Request headers:', req.headers);
+
+
+
+
         const originalUrl = req.body.originalUrl;
-        console.log(originalUrl);
+        console.log('original', originalUrl);
 
         const data = await urlShortenerService.createShortUrl(originalUrl);
 
@@ -58,6 +68,12 @@ router.post('/create', async (req, res) => {
             EC: data.EC,
             DT: data.DT,
         })
+
+
+        // return res.status(200).json({
+        //     message: 'Received request successfully'
+        // });
+
     } catch (error) {
         console.error(error);
 

@@ -1,10 +1,11 @@
 {
   "name": "url-shortener",
   "version": "1.0.0",
+  "type": "module",
   "main": "server.js",
   "scripts": {
     "start": "babel-node src/server",
-    "dev": "nodemon src/server",
+    "dev": "NODE_OPTIONS=--no-warnings nodemon src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -16,10 +17,17 @@
     "@babel/preset-env": "7.15.4",
     "babel": "^5.8.38",
     "cors": "^2.8.5",
-    "express": "^4.21.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
     "mongoose": "^8.7.0",
     "nodemon": "^3.1.7",
-    "redis": "^4.7.0"
+    "pg": "^8.13.1",
+    "pg-hstore": "^2.3.4",
+    "redis": "^4.7.0",
+    "sequelize": "^6.37.5",
+    "umzug": "^3.8.2"
   },
-  "type": "module"
+  "devDependencies": {
+    "sequelize-cli": "^6.6.2"
+  }
 }
