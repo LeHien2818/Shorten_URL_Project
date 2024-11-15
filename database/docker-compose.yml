@@ -10,10 +10,14 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./initdb:/docker-entrypoint-initdb.d
-      - ./pgdata:/var/lib/postgresql/data
+      - database_pgdata:/var/lib/postgresql/data
+      - ./initdb/postgres-init.sql:/docker-entrypoint-initdb.d/postgres-init.sql
     networks:
       - url_shortener_network
+
 networks:
   url_shortener_network:
     external: true
+
+volumes:
+  database_pgdata:

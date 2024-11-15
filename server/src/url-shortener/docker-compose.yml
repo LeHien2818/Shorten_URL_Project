@@ -8,12 +8,13 @@ services:
     ports:
       - "3001:3001"
     environment:
-      - MONGO_HOST=mongodb
-      - MONGO_PORT=27017
-      - MONGO_USERNAME=mongo_user
-      - MONGO_PASSWORD=mongo_password
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
+      - DB_SSL=true
+      - DB_HOST=localhost
+      - DB_DATABASE_NAME=postgres_url
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=123456
+      - DB_PORT=5432
+      - DB_DIALECT=postgres
     networks:
       - url_shortener_network
 

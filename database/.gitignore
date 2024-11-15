@@ -1,0 +1,27 @@
+# Ignore pgdata directory
+volumes/pgdata/
+
+# Ignore Docker-related files
+docker-compose.override.yml
+.dockerignore
+
+# Ignore the initdb directory if you don't want to commit initialization scripts
+/initdb/
+
+# Ignore node_modules (if you're using Node.js)
+node_modules/
+
+# Ignore .env file containing sensitive information
+.env
+
+# Ignore log files
+*.log
+
+# Ignore build directories or generated files
+build/
+dist/
+
+# Ignore any temporary or IDE-specific files
+.idea/
+.vscode/
+*.swp
