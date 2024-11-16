@@ -1,9 +1,25 @@
 import express from 'express'
-import connectDB from './config/database.js'
 import bodyParser from 'body-parser'
 import urlExpanderRoute from './routes/url-expander-route.js'
+import { sequelize } from './models/index.js';
 import cacheConfig from './config/cache.js';
 import redis from 'redis';
+import KafkaConfig from './config/kafka.js';
+
+const app = express()
+const PORT = 3002
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+
+
+// connect DB
+sequelize.sync({ force: false, alter: true }).then(() => {
+    console.log("Database synchronized");
+}).catch(err => {
+    console.error("Error syncing database:", err);
+});
 
 const redisClient = redis.createClient({
     socket: {
@@ -19,14 +35,9 @@ redisClient.connect()
     .catch((err) => {
         console.error('Redis connection error:', err);
     });
-
-const app = express()
-const PORT = 3002
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-connectDB()
+    
+// Add Kafka
+KafkaConfig.connectProducer();
 
 app.use('/', urlExpanderRoute(redisClient))
 

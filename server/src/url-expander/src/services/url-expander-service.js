@@ -1,64 +1,29 @@
-import Url from "../models/Url.js";
+import db from '../models/index.js'; // Import db chứa sequelize và các models
 
+const { Url } = db;
+
+import KafkaConfig from '../config/kafka.js';
 class UrlExpanderService {
-    URL_object = {};
-
-    constructor() {
-        this.URL_object = {
-            urlCode: "",
-            longUrl: "",
-            shortUrl: "",
-            date: "",
-        };
-    }
-
-    async findOriginalUrl(url_code) {
-        try {
-            let url = await Url.findOne({ urlCode: url_code });
-
-            if (url) {
-                this.URL_object = {
-                    url_code: url.urlCode,
-                    long_url: url.longUrl,
-                    short_url: url.shortUrl,
-                    date: url.date,
-                };
-                return url.longUrl;
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
     async redirectOriginalUrl(url_code, redisClient) {
         try {
-            let hotData = await redisClient.get(`hot:url:${url_code}`);
-            if (hotData) {
-                let hotCacheUrl = JSON.parse(hotData);
-                hotCacheUrl.clicks += 1;
-                await redisClient.setEx(`hot:url:${url_code}`, 3600, JSON.stringify(hotCacheUrl));
-                console.log("Cache");
-                return hotCacheUrl.longUrl;
-            }
-
             let data = await redisClient.get(`url:${url_code}`);
             if (data) {
                 let cacheUrl = JSON.parse(data);
-                cacheUrl.clicks += 1;
-                await redisClient.setEx(`url:${url_code}`, 3600, JSON.stringify(cacheUrl));
-                console.log("Cache");
+                console.log(">>> get from cache");
+                // produce to kafka
+                await KafkaConfig.produce('url_clicked', cacheUrl);
                 return cacheUrl.longUrl;
             }
 
-            let url = await Url.findOne({ urlCode: url_code });
+            let url = await Url.findOne({
+                where: { urlCode: url_code }
+            });
+            
             if (url) {
-                url.clicks++;
-                await url.save();
-                await redisClient.setEx(
-                    `url:${url.urlCode}`,
-                    3600,
-                    JSON.stringify({ longUrl: url.longUrl, clicks: url.clicks })
-                );
+                console.log(">>> get from database");
+                await redisClient.setEx(`url:${url_code}`, 3600, JSON.stringify(url));
+                // produce to kafka
+                await KafkaConfig.produce('url_clicked', url);
                 return url.longUrl;
             }
         } catch (error) {

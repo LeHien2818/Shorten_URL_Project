@@ -1,30 +1,28 @@
-import express from 'express';
-import connectDB from './config/database.js';
-import analyticsService from './services/analytics-service.js';
-import cacheConfig from './config/cache.js';
-import redis from 'redis';
+import express from "express";
 
-const redisClient = redis.createClient({
-    socket: {
-        host: cacheConfig.redisHost,
-        port: cacheConfig.redisPort,
-    }
-});
-
-redisClient.connect()
-    .then(() => {
-        console.log('Connected to Redis');
-    })
-    .catch((err) => {
-        console.error('Redis connection error:', err);
-    });
+import { sequelize } from "./models/index.js";
+import { startClicksConsumer } from "./services/clicks-consumer.js";
+import { startTopUrlConsumer } from "./services/top-url-consumer.js";
 
 const app = express();
 
-connectDB();
-// redisClient.flushAll();
+// connect DB
+sequelize
+  .sync({ force: false, alter: true })
+  .then(() => {
+    console.log("Database synchronized");
+  })
+  .catch((err) => {
+    console.error("Error syncing database:", err);
+  });
 
-analyticsService.startScheduler(redisClient);
+startClicksConsumer().catch((err) => {
+  console.error("Error starting clicks consumer:", err);
+});
+
+startTopUrlConsumer().catch((err) => {
+  console.error("Error starting top url consumer:", err);
+});
 
 const PORT = 3003;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

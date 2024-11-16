@@ -4,6 +4,8 @@ import db from '../models/index.js'; // Import db chứa sequelize và các mode
 
 const { Url } = db;
 
+// import KafkaConfig from '../config/kafka.js';
+
 
 
 class UrlShortenerService {
@@ -45,7 +47,7 @@ class UrlShortenerService {
 
         return code;
     }
-    async createShortUrl(originalUrl) {
+    async createShortUrl(originalUrl, redisClient) {
         const server_host_url = 'http://localhost:3002' // 'http://short.url'
         try {
 
@@ -53,14 +55,12 @@ class UrlShortenerService {
 
             console.log('hit data create short url');
 
-
             let url = await Url.findOne({
                 where: { longUrl: originalUrl }
             });
-            console.log('check', url);
 
             if (url) {
-                console.log('url exits');
+                console.log('>>> url exits in db');
                 return {
                     EM: ' URL is exits ',
                     EC: '1',
@@ -81,11 +81,15 @@ class UrlShortenerService {
             });
 
             await url.save();
+            await redisClient.setEx(`url:${url.urlCode}`, 3600, JSON.stringify(url));
+
+            // await KafkaConfig.produce('url_created', url);
+            // console.log('send to kafka');
 
             return {
                 EM: 'create short URL succesfully ',
                 EC: '0',
-                DT: shortUrl
+                DT: url
             }
         } catch (error) {
             console.error(error);
