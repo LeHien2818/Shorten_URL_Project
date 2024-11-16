@@ -1,5 +1,5 @@
 import { Sequelize, DataTypes } from 'sequelize';
-import config from '../config/config.json' assert { type: 'json' };
+import config from '../config/config.js';
 import urlModel from './url.js';
 
 const sequelize = new Sequelize(config.development);

@@ -9,7 +9,7 @@ services:
       - "3001:3001"
     environment:
       - DB_SSL=true
-      - DB_HOST=localhost
+      - DB_HOST=postgres
       - DB_DATABASE_NAME=postgres_url
       - DB_USERNAME=postgres
       - DB_PASSWORD=123456
