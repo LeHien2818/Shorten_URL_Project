@@ -4,7 +4,7 @@ class KafkaConfig {
   constructor(groupId, consumerOnly = true) {
     this.kafka = new Kafka({
       clientId: "analytics-service",
-      brokers: ["localhost:29092"],
+      brokers: [process.env.KAFKA_BROKER || "localhost:29092"],
     });
     this.consumer = this.kafka.consumer({ groupId: groupId, maxWaitTimeInMs: 3000 });
     if (!consumerOnly) {

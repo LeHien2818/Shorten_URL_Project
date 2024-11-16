@@ -9,7 +9,7 @@ class KafkaConfig {
 
     this.kafka = new Kafka({
       clientId: "shortener-service",
-      brokers: ["localhost:29092"],
+      brokers: [process.env.KAFKA_BROKER || "localhost:29092"],
     });
 
     this.producer = this.kafka.producer();
