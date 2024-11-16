@@ -11,10 +11,22 @@ If you use docker, run the following command first:
 ### Database
 
 To install the database, you need to run the following commands in your terminal:
-
+#### Using mongo
 #### Step 1:
 Navigate to db folder:
 `cd db`
+#### Step 2:
+To start database: 
+`docker-compose up -d` to run the database in the background.
+If you want to shut down database server and delete container, just simply run:
+`docker-compose down`.
+#### Caution: If you use Linux OS, you should run above commands with sudo permission!
+For instance,  `sudo docker-compose up -d` and `sudo docker-compose down`.
+
+#### Using postgres
+#### Step 1:
+Navigate to db folder:
+`cd database`
 #### Step 2:
 To start database: 
 `docker-compose up -d` to run the database in the background.
