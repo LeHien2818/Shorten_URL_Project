@@ -36,6 +36,7 @@ redisClient.connect()
         console.error('Redis connection error:', err);
     });
     
+redisClient.flushAll();
 // Add Kafka
 KafkaConfig.connectProducer();
 

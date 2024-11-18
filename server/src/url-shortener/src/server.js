@@ -5,7 +5,7 @@ import cors from 'cors'
 import { sequelize } from './models/index.js';
 import cacheConfig from './config/cache.js';
 import redis from 'redis';
-// import KafkaConfig from './config/kafka.js';
+import KafkaConfig from './config/kafka.js';
 
 const app = express();
 const PORT = 3001;
@@ -39,7 +39,7 @@ redisClient.connect()
     });
 
 // Add Kafka
-// KafkaConfig.connectProducer();
+KafkaConfig.connectProducer();
 
 app.use('/shorten', urlShortenerRoute(redisClient));
 

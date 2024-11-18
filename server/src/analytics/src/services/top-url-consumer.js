@@ -22,8 +22,8 @@ redisClient
 
 const topUrlConsumer = kafkaConfigInstances.get("top_url_group");
 
-const BATCH_SIZE = 15;
-const FLUSH_INTERVAL = 1000;
+const BATCH_SIZE = 15;//can fix
+const FLUSH_INTERVAL = 10000;//can fix
 
 let messages = 0;
 

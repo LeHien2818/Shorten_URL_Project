@@ -3,6 +3,7 @@ import express from "express";
 import { sequelize } from "./models/index.js";
 import { startClicksConsumer } from "./services/clicks-consumer.js";
 import { startTopUrlConsumer } from "./services/top-url-consumer.js";
+import { startCreateConsumer } from "./services/create-url-consumer.js";
 
 const app = express();
 
@@ -22,6 +23,10 @@ startClicksConsumer().catch((err) => {
 
 startTopUrlConsumer().catch((err) => {
   console.error("Error starting top url consumer:", err);
+});
+
+startCreateConsumer().catch((err) => {
+  console.error("Error starting create consumer:", err);
 });
 
 const PORT = 3003;
