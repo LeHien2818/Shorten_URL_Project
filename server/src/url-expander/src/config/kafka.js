@@ -4,42 +4,63 @@ import db from "../models/index.js"; // Import db chứa sequelize và các mode
 const { Url } = db;
 
 class KafkaConfig {
-  static instance;
-  constructor() {
-    if (KafkaConfig.instance) {
-      return KafkaConfig.instance;
-    }
-
+  constructor(groupId) {
     this.kafka = new Kafka({
       clientId: "expander-service",
       brokers: [process.env.KAFKA_BROKER || "localhost:29092"],
     });
-
+    this.consumer = this.kafka.consumer({ groupId: groupId, maxWaitTimeInMs: 3000 });
     this.producer = this.kafka.producer();
-
-    KafkaConfig.instance = this;
   }
 
   async connectProducer() {
+    if (!this.producer) {
+      return;
+    }
     await this.producer.connect();
     console.log("Kafka Producer connected...");
   }
 
   async disconnectProducer() {
+    if (!this.producer) {
+      return;
+    }
     await this.producer.disconnect();
     console.log(`Kafka producer disconnected...`);
   }
 
+  async connectConsumer() {
+    await this.consumer.connect();
+    console.log(`Kafka consumer connected...`);
+  }
+
+  async disconnectConsumer() {
+    await this.consumer.disconnect();
+    console.log(`Kafka consumer disconnected...`);
+  }
+
+  async consume(topic, callback) {
+    try {
+      await this.consumer.subscribe({ topic: topic, fromBeginning: true });
+      await this.consumer.run({
+        eachMessage: async ({ topic, partition, message }) => {
+          const value = message.value.toString();
+          callback(value);
+        },
+      });
+    } catch (error) {
+      console.log("The Kafka Consume error", error);
+    }
+  }
+
   async produce(topic, messages) {
+    if (!this.producer) {
+      return;
+    }
     try {
       await this.producer.send({
         topic: topic,
-        messages: [
-          {
-            key: messages.urlCode,
-            value: JSON.stringify(messages),
-          },
-        ],
+        messages: [{ value: JSON.stringify(messages) }],
       });
     } catch (error) {
       console.log("Kafka producer error", error);
@@ -47,6 +68,6 @@ class KafkaConfig {
   }
 }
 
-const kafkaConfigInstance = new KafkaConfig();
+const kafkaConfigInstance = new KafkaConfig("url_clicked");
 
 export default kafkaConfigInstance;

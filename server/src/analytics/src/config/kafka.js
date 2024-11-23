@@ -69,8 +69,8 @@ class KafkaConfig {
 
 const kafkaConfigInstances = new Map();
 
-kafkaConfigInstances.set("url_created_group", new KafkaConfig("url_created"));
-kafkaConfigInstances.set("url_clicked_group", new KafkaConfig("url_clicked", false));
+// kafkaConfigInstances.set("url_created_group", new KafkaConfig("url_created"));
+// kafkaConfigInstances.set("url_clicked_group", new KafkaConfig("url_clicked", false));
 kafkaConfigInstances.set("top_url_group", new KafkaConfig("top_url"));
 
 export { kafkaConfigInstances };

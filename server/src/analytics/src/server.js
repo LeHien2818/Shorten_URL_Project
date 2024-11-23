@@ -1,9 +1,9 @@
 import express from "express";
 
 import { sequelize } from "./models/index.js";
-import { startClicksConsumer } from "./services/clicks-consumer.js";
+// import { startClicksConsumer } from "./services/clicks-consumer.js";
 import { startTopUrlConsumer } from "./services/top-url-consumer.js";
-import { startCreateConsumer } from "./services/create-url-consumer.js";
+// import { startCreateConsumer } from "./services/create-url-consumer.js";
 
 const app = express();
 
@@ -17,17 +17,17 @@ sequelize
     console.error("Error syncing database:", err);
   });
 
-startClicksConsumer().catch((err) => {
-  console.error("Error starting clicks consumer:", err);
-});
+// startClicksConsumer().catch((err) => {
+//   console.error("Error starting clicks consumer:", err);
+// });
 
 startTopUrlConsumer().catch((err) => {
   console.error("Error starting top url consumer:", err);
 });
 
-startCreateConsumer().catch((err) => {
-  console.error("Error starting create consumer:", err);
-});
+// startCreateConsumer().catch((err) => {
+//   console.error("Error starting create consumer:", err);
+// });
 
 const PORT = 3003;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

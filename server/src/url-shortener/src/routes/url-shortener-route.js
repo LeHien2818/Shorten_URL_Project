@@ -25,14 +25,12 @@ export default (redisClient) => {
                 DT: data.DT,
             })
         }
+        
         return res.status(200).json({
             EM: data.EM,
             EC: data.EC,
             DT: data.DT,
         })
-        // return res.status(200).json({
-        //     message: 'Received request successfully'
-        // });
 
     } catch (error) {
         console.error(error);
@@ -46,6 +44,9 @@ export default (redisClient) => {
     });
     return router;
 };
+
+
+
 /*
 router.get('/:shortId', async (req, res) => {
     try {

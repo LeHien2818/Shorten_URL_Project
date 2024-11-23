@@ -115,7 +115,7 @@ class UrlShortenerService {
             
             // console.log('send to kafka');
             await KafkaConfig.produce('url_created', url);
-
+            
             return {
                 EM: 'create short URL succesfully ',
                 EC: '0',
