@@ -10,9 +10,10 @@ export default (redisClient) => {
       const original_url = await urlExpanderService.redirectOriginalUrl(shortID, redisClient);
       if (original_url) {
         console.log(original_url);
-        return res.status(200).json({
-          originalUrl: original_url,
-        });
+        // return res.status(200).json({
+        //   originalUrl: original_url,
+        // });
+        res.redirect(original_url);
       }
     } catch (error) {
       console.error(error);
