@@ -1,6 +1,5 @@
 import  kafkaConfigInstance  from "../config/kafka.js";
 import db from "../models/index.js"; // Import db chứa sequelize và các models
-import { randomUUID } from "../utils/utils.js";
 const { Url } = db;
 
 const createConsumer = kafkaConfigInstance

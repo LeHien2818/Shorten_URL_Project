@@ -19,6 +19,26 @@ services:
       - REDIS_PORT=6379
     networks:
       - url_shortener_network
+  
+  url-shortener-service2:
+    image: url-shortener
+    container_name: shortener2
+    build: .
+    ports:
+      - "3004:3001"
+    environment:
+      - DB_SSL=true
+      - DB_HOST=postgres
+      - DB_DATABASE_NAME=postgres_url
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=123456
+      - DB_PORT=5432
+      - DB_DIALECT=postgres
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    networks:
+      - url_shortener_network
+
 
 networks:
   url_shortener_network:

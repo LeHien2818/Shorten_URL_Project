@@ -21,6 +21,27 @@ services:
     networks:
       - url_shortener_network
 
+  url-expander-service2:
+    image: url-expander
+    container_name: expander2
+    build: .
+    ports:
+      - "3006:3002"
+    environment:
+      - DB_SSL=true
+      - DB_HOST=postgres
+      - DB_DATABASE_NAME=postgres_url
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=123456
+      - DB_PORT=5432
+      - DB_DIALECT=postgres
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - KAFKA_BROKER=kafka:9092
+    networks:
+      - url_shortener_network
+    
+
 networks:
   url_shortener_network:
     external: true

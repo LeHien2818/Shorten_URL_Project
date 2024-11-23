@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx_server
+    ports:
+      - "80:80" # Map port 80 on the host to port 80 in the container
+      - "443:443" # Map port 443 for HTTPS if needed
+    networks:
+      - url_shortener_network
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro # Mount a custom NGINX config if needed
+
+networks:
+  url_shortener_network:
+    external: true # Use the existing Docker network
