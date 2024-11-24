@@ -16,6 +16,7 @@ The **Load Leveling Pattern** is used to ensure that the load is evenly distribu
 - **Redis**: Cache for storing frequently accessed data, applying the **Cache-Aside** strategy to improve performance. Each request first checks Redis cache before querying the database.
 - **PostgreSQL**: Database for persistent storage of URL mappings.
 - **Docker**: Used for deploying all services in isolated environments, ensuring easy setup and scaling.
+- **Nginx**: Used for gateway routing and load balancing between services and instances.
 
 ### Workflow
 
