@@ -59,7 +59,7 @@ redisClient.configSet('maxmemory', '8gb', (err, result) => {
 // Add Kafka
 console.log("before registered...");
 KafkaConfig.connectProducer().then(()=>{
-    app.use('/shorten', urlShortenerRoute(redisClient));
+    app.use('/', urlShortenerRoute(redisClient));
 
     console.log("before create consumer");
     startCreateConsumer().catch((err) => {

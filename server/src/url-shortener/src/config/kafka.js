@@ -1,5 +1,6 @@
 import { Kafka } from "kafkajs";
 
+
 class KafkaConfig {
   constructor(groupId) {
     this.kafka = new Kafka({

@@ -8,11 +8,14 @@ export default function BaseShortUrl() {
     const [shortenedUrl, setShortenedUrl] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
+    const MULTIPLES_INSTANCES_URL = 'http://localhost/create'
+    const DEV_URL =  'http://localhost:3001/create'
+
     const handleShorten = async () => {
         if (!url) return;
 
         try {
-            const response = await fetch('http://localhost:3001/shorten/create', {
+            const response = await fetch(DEV_URL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

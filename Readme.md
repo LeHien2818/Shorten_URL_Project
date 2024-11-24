@@ -137,6 +137,18 @@ npm i
 npm run dev
 ```
 
+### Step 7: Run nginx and multiple services instances
+
+Go to **Nginx** folder and run this command:
+
+```bash
+sudo docker compose up -d
+```
+After that, change api endpoint insinde **Client/frontend/src/component/form/shortener.tsx** folder to **MULTIPLES_INSTANCES_URL** and run.
+(Remember: run all services in this project with docker to test)
+### Step 8(optional): Run test
+Install apache-benchmark on your machine and go to folder **/testing** and run with file ***test.txt*
+
 ## Conclusion
 
 This URL Shortener system utilizes modern architectural patterns such as Microservices, Load Leveling, and Competing Consumer with Kafka. The system is designed to be scalable, with Redis for caching and PostgreSQL for data storage. Kafka helps with decoupling and background task processing, while Docker ensures smooth deployment and management.

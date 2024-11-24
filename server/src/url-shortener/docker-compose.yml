@@ -17,6 +17,7 @@ services:
       - DB_DIALECT=postgres
       - REDIS_HOST=redis
       - REDIS_PORT=6379
+      - KAFKA_BROKER=kafka:9092
     networks:
       - url_shortener_network
   
@@ -36,9 +37,9 @@ services:
       - DB_DIALECT=postgres
       - REDIS_HOST=redis
       - REDIS_PORT=6379
+      - KAFKA_BROKER=kafka:9092
     networks:
       - url_shortener_network
-
 
 networks:
   url_shortener_network:
