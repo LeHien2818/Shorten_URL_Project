@@ -10,7 +10,7 @@ class UrlExpanderService {
             if (data) {
                 let cacheUrl = JSON.parse(data);
                 console.log(">>> get from cache");
-                await redisClient.setEx(`url:${url_code}`, 3600, JSON.stringify(url));
+                await redisClient.setEx(`url:${url_code}`, 3600, JSON.stringify(cacheUrl));
                 // produce to kafka
                 await KafkaConfig.produce('url_clicked', cacheUrl);
                 return cacheUrl.longUrl;
